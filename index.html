@@ -19,13 +19,24 @@
     --teal: #1a9e7a; --teal-dark: #0f6e56; --teal-mid: #5dcaa5;
     --green: #22c55e; --red: #ef4444; --gold: #f59e0b;
     --nisa: #a78bfa; --tokutei: #60a5fa;
-    --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
-    --border: rgba(255,255,255,0.08);
-    --text: #e6edf3; --text2: #8b949e; --text3: #6e7681;
+    --bg: #080c12; --bg2: #0e1520; --bg3: #151e2c;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8eef6; --text2: #8896aa; --text3: #5a6a80;
     --font: 'DM Sans', sans-serif; --mono: 'DM Mono', monospace;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(26,158,122,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 90% 60%, rgba(96,165,250,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 10% 80%, rgba(167,139,250,0.05) 0%, transparent 60%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+  }
 
   /* ── パスワードロック ── */
   #lock-screen {
@@ -48,11 +59,20 @@
 
   .header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; background: var(--bg2);
-    border-bottom: 1px solid var(--border); position: sticky; top:0; z-index:100;
+    padding: 16px 24px;
+    background: rgba(8, 12, 18, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    position: sticky; top:0; z-index:100;
   }
   .logo { display:flex; align-items:center; gap:10px; }
-  .logo-icon { width:32px; height:32px; border-radius:8px; background:linear-gradient(135deg,var(--teal),#0f6e56); display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .logo-icon {
+    width:32px; height:32px; border-radius:8px;
+    background: linear-gradient(135deg, #1a9e7a 0%, #0f6e56 50%, #0a5240 100%);
+    box-shadow: 0 0 12px rgba(26,158,122,0.4);
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+  }
   .logo-text { font-size:18px; font-weight:600; letter-spacing:-0.3px; }
   .logo-text span { color:var(--teal-mid); }
   .header-right { display:flex; align-items:center; gap:12px; }
@@ -60,7 +80,7 @@
   .update-badge .dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--teal); margin-right:6px; animation:pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-  .nav { display:flex; gap:4px; padding:12px 24px 0; border-bottom:1px solid var(--border); background:var(--bg2); flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; }
+  .nav { display:flex; gap:4px; padding:12px 24px 0; border-bottom:1px solid rgba(255,255,255,0.06); background:rgba(8,12,18,0.7); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; }
   .nav::-webkit-scrollbar { display:none; }
   .tab { padding:8px 16px; font-size:13px; font-weight:500; color:var(--text2); cursor:pointer; border-radius:6px 6px 0 0; border-bottom:2px solid transparent; transition:all 0.15s; }
   .tab.active { color:var(--teal-mid); border-bottom-color:var(--teal); background:rgba(29,158,122,0.08); }
@@ -69,7 +89,17 @@
   .main { padding:24px 16px; max-width:1200px; margin:0 auto; }
 
   .summary { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
-  .summary-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:16px; animation:fadeIn 0.4s ease both; }
+  .summary-card {
+    background: linear-gradient(135deg, rgba(14,21,32,0.9) 0%, rgba(10,16,26,0.95) 100%);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius:14px; padding:16px; animation:fadeIn 0.4s ease both;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .summary-card:hover {
+    border-color: rgba(93,202,165,0.2);
+    box-shadow: 0 4px 28px rgba(0,0,0,0.4), 0 0 0 1px rgba(93,202,165,0.08), inset 0 1px 0 rgba(255,255,255,0.07);
+  }
   .summary-card.nisa-card { border-color:rgba(167,139,250,0.3); }
   @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
   .card-label { font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px; }
@@ -79,17 +109,34 @@
 
   .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
   .section-title { font-size:14px; font-weight:600; color:var(--text2); text-transform:uppercase; letter-spacing:0.6px; }
-  .btn-add { display:flex; align-items:center; gap:6px; background:var(--teal); color:white; border:none; border-radius:8px; padding:8px 14px; font-size:13px; font-weight:500; cursor:pointer; font-family:var(--font); transition:background 0.15s; }
-  .btn-add:hover { background:var(--teal-dark); }
+  .btn-add {
+    display:flex; align-items:center; gap:6px;
+    background: linear-gradient(135deg, #1a9e7a, #0f6e56);
+    color:white; border:none; border-radius:9px; padding:8px 14px; font-size:13px; font-weight:500;
+    cursor:pointer; font-family:var(--font);
+    box-shadow: 0 2px 12px rgba(26,158,122,0.3);
+    transition: all 0.15s;
+  }
+  .btn-add:hover {
+    background: linear-gradient(135deg, #22b589, #116055);
+    box-shadow: 0 4px 18px rgba(26,158,122,0.45);
+    transform: translateY(-1px);
+  }
 
-  .stock-table { background:var(--bg2); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:24px; }
+  .stock-table {
+    background: linear-gradient(180deg, rgba(14,21,32,0.95) 0%, rgba(10,16,26,0.98) 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius:14px; overflow:hidden; margin-bottom:24px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.35);
+  }
   .stock-table-wrap { overflow-x:auto; border-radius:14px; margin-bottom:24px; }
   .stock-table-wrap .stock-table { margin-bottom:0; border-radius:0; }
   .table-head {
     display:grid; grid-template-columns: 1.8fr 1.1fr 1.1fr 0.4fr;
     padding:10px 16px; font-size:11px; color:var(--text3);
     text-transform:uppercase; letter-spacing:0.6px;
-    border-bottom:1px solid var(--border); background:var(--bg3);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(90deg, rgba(26,158,122,0.06) 0%, rgba(255,255,255,0.02) 100%);
   }
   .stock-row {
     display:grid; grid-template-columns: 1.8fr 1.1fr 1.1fr 0.4fr;
@@ -98,7 +145,7 @@
     animation:fadeIn 0.4s ease both;
   }
   .stock-row:last-child { border-bottom:none; }
-  .stock-row:hover { background:var(--bg3); }
+  .stock-row:hover { background: rgba(93,202,165,0.04); }
   .stock-row.gold { background:rgba(245,158,11,0.06); border-left:3px solid var(--gold); }
   .stock-row.gold:hover { background:rgba(245,158,11,0.1); }
   .stock-name { font-weight:500; font-size:13px; word-break:break-word; }
@@ -133,15 +180,29 @@
   /* Modal */
   .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.2s; }
   .modal-overlay.open { opacity:1; pointer-events:all; }
-  .modal { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:24px; width:440px; max-height:88vh; overflow-y:auto; transform:translateY(16px); transition:transform 0.2s; }
+  .modal {
+    background: linear-gradient(160deg, rgba(14,22,36,0.98) 0%, rgba(8,14,24,0.99) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius:18px; padding:24px; width:440px; max-height:88vh; overflow-y:auto;
+    transform:translateY(16px); transition:transform 0.2s;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
   .modal-overlay.open .modal { transform:translateY(0); }
   .modal-title { font-size:16px; font-weight:600; margin-bottom:20px; }
   .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .form-group { display:flex; flex-direction:column; gap:5px; }
   .form-group.full { grid-column:1/-1; }
   .form-label { font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; }
-  .form-input { background:var(--bg3); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:9px 12px; font-size:13px; font-family:var(--font); outline:none; transition:border-color 0.15s; }
-  .form-input:focus { border-color:var(--teal); }
+  .form-input {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color:var(--text); border-radius:9px; padding:9px 12px; font-size:13px; font-family:var(--font); outline:none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-input:focus {
+    border-color: rgba(93,202,165,0.6);
+    box-shadow: 0 0 0 3px rgba(26,158,122,0.12);
+  }
   select.form-input option { background:var(--bg3); }
   .form-divider { grid-column:1/-1; height:1px; background:var(--border); margin:4px 0; }
   .form-section-label { grid-column:1/-1; font-size:11px; color:var(--teal-mid); text-transform:uppercase; letter-spacing:0.6px; }
@@ -222,7 +283,17 @@
   .suggest-item-name { font-size:13px; flex:1; }
   .suggest-item-market { font-size:10px; padding:2px 6px; border-radius:4px; }
 
-  .achieved-card { background:var(--bg2); border:1px solid rgba(34,197,94,0.25); border-radius:12px; padding:12px 14px; animation:fadeIn 0.4s ease both; overflow:hidden; }
+  .achieved-card {
+    background: linear-gradient(135deg, rgba(14,21,32,0.95) 0%, rgba(9,15,24,0.98) 100%);
+    border: 1px solid rgba(34,197,94,0.25);
+    border-radius:14px; padding:12px 14px; animation:fadeIn 0.4s ease both; overflow:hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .achieved-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.4);
+  }
   .achieved-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:8px; }
   .achieved-up { color:var(--green); } .achieved-down { color:var(--red); }
   .target-bar-wrap { margin-top:8px; }
@@ -857,6 +928,62 @@
 </div>
 </div>
 <div id="page-achieved" class="page">
+
+    <!-- ── リスト入り条件ボタン＆パネル ── -->
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+      <button onclick="toggleAchievedInfo()" id="btn-achieved-info"
+        style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px">
+        📋 リスト入り条件
+      </button>
+    </div>
+
+    <div id="achieved-info" style="display:none;background:var(--bg3);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;margin-bottom:18px">
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:14px">📋 各リストに入る条件</div>
+
+      <!-- 目標価格 -->
+      <div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:12px 14px;margin-bottom:10px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:16px">🎯</span>
+          <span style="font-size:13px;font-weight:600;color:var(--green)">目標価格 達成リスト</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          <strong style="color:var(--text)">現在価格 ≥ 目標価格</strong> になると自動でリスト入りします。<br>
+          目標価格は銘柄追加・編集時に設定（デフォルトは取得価格の <span style="color:var(--green)">+30%</span>）。<br>
+          達成後は利確のタイミングを検討してください。
+        </div>
+      </div>
+
+      <!-- 損切りライン -->
+      <div style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.25);border-radius:10px;padding:12px 14px;margin-bottom:10px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:16px">🔻</span>
+          <span style="font-size:13px;font-weight:600;color:var(--red)">損切りライン 到達リスト</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          <strong style="color:var(--text)">現在価格 ≤ 損切り価格</strong> になると自動でリスト入りします。<br>
+          損切り価格は銘柄追加・編集時に設定（デフォルトは取得価格の <span style="color:var(--red)">−10%</span>）。<br>
+          リスト入りしたら即売却を検討してください。損失の拡大を防ぐのが最優先です。
+        </div>
+      </div>
+
+      <!-- 配当10年分 -->
+      <div style="background:rgba(96,165,250,0.07);border:1px solid rgba(96,165,250,0.25);border-radius:10px;padding:12px 14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:16px">💰</span>
+          <span style="font-size:13px;font-weight:600;color:#60a5fa">配当10年分 達成リスト</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          <strong style="color:var(--text)">含み益 ≥ 年間配当（税引後）× 10年分</strong> になると自動でリスト入りします。<br>
+          例：年間配当が ¥5万 の銘柄なら、含み益が <span style="color:#60a5fa">¥50万以上</span> になった時点でリスト入り。<br>
+          「配当をもらい続けるより売った方が得では？」を判断するひとつの目安です。
+        </div>
+      </div>
+
+      <div style="margin-top:10px;padding:8px 12px;background:rgba(245,158,11,0.08);border-radius:8px;font-size:11px;color:var(--gold)">
+        💡 いずれも株価更新のたびに自動チェックされます。目標価格・損切り価格は「✏️ 編集」からいつでも変更できます。
+      </div>
+    </div>
+
     <!-- 目標価格達成 -->
     <div class="section-header">
       <div class="section-title">🎯 目標価格 達成リスト</div>
@@ -889,15 +1016,8 @@
 </div>
 <div id="page-chart" class="page">
   <div style="padding:16px 16px 0">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-      <div class="section-title">🥧 ポートフォリオ比率</div>
-      <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden">
-        <button id="btn-chart-stock"   onclick="setChartMode('stock')"   style="padding:6px 10px;font-size:11px;font-weight:500;border:none;cursor:pointer;font-family:var(--font);background:rgba(29,158,122,0.2);color:var(--teal-mid)">銘柄</button>
-        <button id="btn-chart-sector"  onclick="setChartMode('sector')"  style="padding:6px 10px;font-size:11px;font-weight:500;border:none;cursor:pointer;font-family:var(--font);background:var(--bg3);color:var(--text2)">セクター</button>
-        <button id="btn-chart-market"  onclick="setChartMode('market')"  style="padding:6px 10px;font-size:11px;font-weight:500;border:none;cursor:pointer;font-family:var(--font);background:var(--bg3);color:var(--text2)">JP/US</button>
-        <button id="btn-chart-climate" onclick="setChartMode('climate')" style="padding:6px 10px;font-size:11px;font-weight:500;border:none;cursor:pointer;font-family:var(--font);background:var(--bg3);color:var(--text2)">景気</button>
-        <button id="btn-chart-pnl"     onclick="setChartMode('pnl')"     style="padding:6px 10px;font-size:11px;font-weight:500;border:none;cursor:pointer;font-family:var(--font);background:var(--bg3);color:var(--text2)">損益</button>
-      </div>
+    <div style="margin-bottom:14px">
+      <div class="section-title">🥧 ポートフォリオ比率（銘柄別）</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px">
@@ -1926,7 +2046,15 @@ function showTab(page, el) {
   if (page === 'sellhistory') renderSellHistory();
   if (page === 'scoring') { renderScoreHistory(); renderScoreHeldButtons(); }
 }
-function openModal(){ document.getElementById('modal').classList.add('open'); }
+function openModal(){
+  document.getElementById('modal').classList.add('open');
+  // デフォルト: 目標+30%・損切り-10%を事前入力
+  var tpct = document.getElementById('f-target-pct');
+  if (tpct && !tpct.value) tpct.value = '30';
+  var spct = document.getElementById('f-stop-pct');
+  if (spct && !spct.value) spct.value = '10';
+  setTargetMode('pct'); // デフォルトを%入力モードに
+}
 function closeModal(){
   document.getElementById('modal').classList.remove('open');
   ['f-name','f-code','f-buy','f-shares','f-current','f-div','f-target-price','f-target-pct'].forEach(id=>{
@@ -1980,6 +2108,15 @@ function addStock(){
   let mkt = market || 'JP';
   let sameMarket = stocks.filter(s => s.market === mkt).length;
   if (sameMarket >= MAX_STOCKS_JP) { alert(`${mkt}株の保有銘柄は12銘柄までです`); return; }
+  // US株は入力値（ドル）→円に変換して保存
+  let isUSNew = mkt === 'US';
+  if (isUSNew) {
+    let rateNew = getRate();
+    buy     = Math.round(buy     * rateNew);
+    current = Math.round(current * rateNew);
+    div     = Math.round(div     * rateNew * 100) / 100;
+    if (targetPrice) targetPrice = Math.round(targetPrice * rateNew);
+  }
   // 損切りライン：入力があればそれを使用、なければデフォルト-10%
   let stopPriceVal = null;
   let stopPctInput = parseFloat(document.getElementById('f-stop-pct') ? document.getElementById('f-stop-pct').value : '');
@@ -1987,6 +2124,10 @@ function addStock(){
     stopPriceVal = Math.round(buy * (1 - stopPctInput / 100));
   } else {
     stopPriceVal = Math.round(buy * 0.90); // デフォルト -10%
+  }
+  // 目標価格：未指定なら取得価格の+30%をデフォルトに
+  if (!targetPrice && buy) {
+    targetPrice = Math.round(buy * 1.30);
   }
   stocks.push({name,code,market,acct,buy,current,shares,div,roe,opm,per,growth,targetPrice,stopPrice:stopPriceVal});
   // 購入履歴記録
@@ -2580,11 +2721,15 @@ function loadData() {
       return;
     }
     stocks = JSON.parse(d);
-    // マイグレーション：stopPriceが未設定の銘柄にデフォルト-10%を適用
+    // マイグレーション：目標価格・損切りラインが未設定の銘柄にデフォルトを適用
     let migrated = false;
     stocks.forEach(function(s) {
       if (!s.stopPrice && s.buy) {
-        s.stopPrice = Math.round(s.buy * 0.90);
+        s.stopPrice = Math.round(s.buy * 0.90);   // デフォルト -10%
+        migrated = true;
+      }
+      if (!s.targetPrice && s.buy) {
+        s.targetPrice = Math.round(s.buy * 1.30); // デフォルト +30%
         migrated = true;
       }
     });
@@ -2649,8 +2794,12 @@ async function fetchPrice(code, market) {
     let data = JSON.parse(json.contents);
     let price = data?.chart?.result?.[0]?.meta?.regularMarketPrice;
     if (!price) return null;
-    // JP: 円、US: ドルそのまま（小数2桁）
-    return market === 'US' ? Math.round(price * 100) / 100 : Math.round(price);
+    // JP: 円、US: ドル × レート で円換算して返す
+    if (market === 'US') {
+      let rate = getRate();
+      return Math.round(price * rate);
+    }
+    return Math.round(price);
   } catch(e) { return null; }
 }
 
@@ -2684,14 +2833,12 @@ async function updateJPStocks() {
   if (isM3) {
     await updateWatchlistFundamentals();
   }
-  // 3の倍数除く奇数日：JPファンダ（Alpha Vantage・最大12回）
-  else if (isOdd) {
+  // 毎日：JPファンダをYahoo Financeで取得（無制限・即時）
+  else {
     for (let i = 0; i < jpStocks.length; i++) {
-      if (getApiCount() >= API_DAILY_LIMIT) break;
       let idx = stocks.indexOf(jpStocks[i]);
       await autoFetchFundamentals(idx);
-      addApiCount(1);
-      if (i < jpStocks.length - 1) await new Promise(r => setTimeout(r, 12000)); // 5回/分制限対応
+      if (i < jpStocks.length - 1) await new Promise(r => setTimeout(r, 800));
     }
   }
 
@@ -2719,36 +2866,30 @@ async function updateUSStocks() {
     if (i < usStocks.length - 1) await new Promise(r => setTimeout(r, 500));
   }
 
-  // 3の倍数除く偶数日：USファンダ（Alpha Vantage・最大12回）
-  if (isEven && !isM3) {
-    for (let i = 0; i < usStocks.length; i++) {
-      if (getApiCount() >= API_DAILY_LIMIT) break;
-      let idx = stocks.indexOf(usStocks[i]);
-      await autoFetchFundamentals(idx);
-      addApiCount(1);
-      if (i < usStocks.length - 1) await new Promise(r => setTimeout(r, 12000)); // 5回/分制限対応
-    }
+  // 毎日：USファンダをYahoo Financeで取得（無制限）
+  for (let i = 0; i < usStocks.length; i++) {
+    let idx = stocks.indexOf(usStocks[i]);
+    await autoFetchFundamentals(idx);
+    if (i < usStocks.length - 1) await new Promise(r => setTimeout(r, 800));
   }
 
   saveData(); if(shouldSaveMonthlySnapshot()) saveSnapshot(); render();
   if (btn) { btn.disabled=false; btn.textContent='💹 株価更新'; }
   saveLastUpdate();}
 
-// 監視銘柄ファンダ取得（3の倍数の日のみ）
+// 監視銘柄ファンダ取得（Yahoo Finance・制限なし）
 async function updateWatchlistFundamentals() {
   if (!watchlist || !watchlist.length) return;
   for (let i = 0; i < Math.min(watchlist.length, MAX_WATCH); i++) {
-    if (getApiCount() >= API_DAILY_LIMIT) break;
     let w = watchlist[i];
-    let data = await fetchFundamentals(w.code, w.market || 'JP');
-    addApiCount(1);
+    let data = await fetchScoreYahooExtra(w.code, w.market || 'JP');
     if (data) {
       if (data.roe    !== null) w.roe    = Math.round(data.roe*10)/10;
       if (data.opm    !== null) w.opm    = Math.round(data.opm*10)/10;
       if (data.per    !== null) w.per    = Math.round(data.per*10)/10;
       if (data.growth !== null) w.growth = Math.round(data.growth*10)/10;
     }
-    if (i < watchlist.length - 1) await new Promise(r => setTimeout(r, 12000)); // 5回/分制限対応
+    if (i < watchlist.length - 1) await new Promise(r => setTimeout(r, 800));
   }
   saveWatch();
   renderWatch();
@@ -2835,15 +2976,7 @@ function scheduledFundamentalsUpdate() {} // スケジューラ統合済みの�
 function updateFundScheduleBadge() {
   let el = document.getElementById('fund-schedule-badge');
   if (!el) return;
-  let d = new Date().getDate();
-  let isM3 = d % 3 === 0;
-  let isOdd = d % 2 === 1;
-  let label = isM3
-    ? '<span style="color:var(--nisa)">今日は3の倍数日 — 15:30 JP・監視株価＋監視ファンダ最大10回 / 6:00 US株価</span>'
-    : isOdd
-      ? '<span style="color:var(--teal-mid)">今日は奇数日 — 15:30 JP・監視株価＋JPファンダ最大12回 / 6:00 US株価</span>'
-      : '<span style="color:#60a5fa">今日は偶数日 — 15:30 JP・監視株価 / 6:00 US株価＋USファンダ最大12回</span>';
-  el.innerHTML = label;
+  el.innerHTML = '<span style="color:var(--teal-mid)">毎日 15:30 → JP株価＋JPファンダ＋監視銘柄 / 毎日 6:00 → US株価＋USファンダ（Yahoo Finance・無制限）</span>';
 }
 
 // ═══════════════════════════════════════════════════════
@@ -2854,12 +2987,6 @@ const PIE_COLORS = ['#1a9e7a','#5dcaa5','#a78bfa','#60a5fa','#f59e0b','#f87171',
 let chartMode = 'stock';
 function setChartMode(mode) {
   chartMode = mode;
-  ['stock','sector','market','climate','pnl'].forEach(m => {
-    let btn = document.getElementById('btn-chart-' + m);
-    if (!btn) return;
-    btn.style.background = mode===m ? 'rgba(29,158,122,0.2)' : 'var(--bg3)';
-    btn.style.color      = mode===m ? 'var(--teal-mid)'       : 'var(--text2)';
-  });
   renderChart();
 }
 
@@ -4030,6 +4157,16 @@ addStock = function() {
     document.getElementById('f-promote-watch-idx').value = '';
   }
 };
+
+function toggleAchievedInfo() {
+  var el  = document.getElementById('achieved-info');
+  var btn = document.getElementById('btn-achieved-info');
+  if (!el) return;
+  var open = el.style.display === 'none';
+  el.style.display = open ? '' : 'none';
+  btn.textContent = open ? '✕ 閉じる' : '📋 リスト入り条件';
+  btn.style.color = open ? 'var(--teal-mid)' : 'var(--text2)';
+}
 
 function toggleChanceInfo(){
   var el=document.getElementById('chance-info');
